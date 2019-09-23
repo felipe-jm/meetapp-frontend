@@ -1,7 +1,12 @@
 import React from 'react';
+import error from '~/assets/404.svg';
 
-// import { Container } from './styles';
+import { Error } from './styles';
 
 export default function NotFound() {
-  return <h1>404</h1>;
+  return (
+    <Error>
+      <img src={error} alt="404" />
+    </Error>
+  );
 }

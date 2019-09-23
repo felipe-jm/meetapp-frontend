@@ -12,6 +12,11 @@ export default function auth(state = INITIAL_STATE, action) {
       return produce(state, draft => {
         draft.token = action.payload.token;
         draft.signed = true;
+        draft.loading = true;
+      });
+    case '@auth/SIGN_FAILURE':
+      return produce(state, draft => {
+        draft.loading = false;
       });
     default:
       return state;
