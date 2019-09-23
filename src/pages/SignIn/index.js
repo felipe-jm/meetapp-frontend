@@ -34,7 +34,7 @@ export default function SignIn() {
 
         <button type="submit">
           {loading ? (
-            <ReactLoading type="spin" color="#fff" height="64px" width="64px" />
+            <ReactLoading type="spin" color="#fff" height="32px" width="32px" />
           ) : (
             'Log in'
           )}

@@ -54,6 +54,10 @@ export const Content = styled.div`
       font-weight: bold;
       transition: opacity 0.5s;
 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       &:hover {
         opacity: 0.8;
       }
