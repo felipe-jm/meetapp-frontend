@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import api from '~/services/api';
 import history from '~/services/history';
 
-import { signInSuccess, signFailure } from './actions';
+import { signInSuccess, signUpSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -26,4 +26,32 @@ export function* signIn({ payload }) {
   }
 }
 
-export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
+export function* signUp({ payload }) {
+  try {
+    const { name, email, password, confirmPassword } = payload;
+
+    if (password !== confirmPassword) {
+      toast.error('Password confirmation different from password.');
+      yield put(signFailure());
+      return;
+    }
+
+    yield call(api.post, 'users', {
+      name,
+      email,
+      password
+    });
+
+    history.push('/');
+    toast.success('Success! Log in');
+    yield put(signUpSuccess());
+  } catch (err) {
+    toast.error('Failed to sign you up. Verify your data and try again.');
+    yield put(signFailure());
+  }
+}
+
+export default all([
+  takeLatest('@auth/SIGN_IN_REQUEST', signIn),
+  takeLatest('@auth/SIGN_UP_REQUEST', signUp)
+]);
