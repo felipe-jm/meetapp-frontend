@@ -22,6 +22,7 @@ export default function user(state = INITIAL_STATE, action) {
     case '@user/UPDATE_PROFILE_SUCCESS':
       return produce(state, draft => {
         draft.profile = action.payload.profile;
+        draft.loading = false;
       });
     case '@user/UPDATE_PROFILE_FAILURE':
       return produce(state, draft => {
