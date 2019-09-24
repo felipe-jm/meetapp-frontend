@@ -1,7 +1,32 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import api from '~/services/api';
+
+import { Container, Meetups, Meetup } from './styles';
 
 export default function Dashboard() {
-  return <h1>Dashboard</h1>;
+  return (
+    <Container>
+      <h1>My meetups</h1>
+
+      <Meetups>
+        <Meetup>
+          <strong>Titulo do meetup</strong>
+          <span>june 24, 5h</span>
+        </Meetup>
+        <Meetup>
+          <strong>Titulo do meetup</strong>
+          <span>june 24, 5h</span>
+        </Meetup>
+        <Meetup>
+          <strong>Titulo do meetup</strong>
+          <span>june 24, 5h</span>
+        </Meetup>
+        <Meetup>
+          <strong>Titulo do meetup</strong>
+          <span>june 24, 5h</span>
+        </Meetup>
+      </Meetups>
+    </Container>
+  );
 }

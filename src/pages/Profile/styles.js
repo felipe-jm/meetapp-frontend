@@ -1,18 +1,8 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
-  height: 100%;
-  background: linear-gradient(180deg, #22202c 0%, #402845 100%);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const Content = styled.div`
-  width: 100%;
-  max-width: 315px;
-  text-align: center;
+export const Container = styled.div`
+  max-width: 600px;
+  margin: 50px auto;
 
   img {
     width: 64px;
@@ -63,6 +53,13 @@ export const Content = styled.div`
       &:hover {
         opacity: 0.8;
       }
+    }
+
+    hr {
+      border: 0;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.5);
+      margin: 10px 0 20px;
     }
 
     span {
