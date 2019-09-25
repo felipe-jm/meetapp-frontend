@@ -4,8 +4,29 @@ export const Container = styled.div`
   max-width: 600px;
   margin: 50px auto;
 
-  h1 {
-    color: #fff;
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      color: #fff;
+    }
+
+    a {
+      border: 0;
+      color: #fff;
+      font-weight: bold;
+      background: #d44059;
+      border-radius: 4px;
+      padding: 12px 10px;
+      margin-left: 10px;
+      transition: opacity 0.5s;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
   }
 `;
 
