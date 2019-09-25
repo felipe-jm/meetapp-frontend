@@ -6,7 +6,7 @@ import api from '~/services/api';
 
 import { Container } from './styles';
 
-export default function Profile({ name }) {
+export default function BannerInput({ name }) {
   const ref = useRef(null);
   const { fieldName, defaultValue, registerField } = useField(name);
 
@@ -16,7 +16,7 @@ export default function Profile({ name }) {
   useEffect(() => {
     if (ref.current) {
       registerField({
-        name: 'avatar_id',
+        name: 'banner_id',
         ref: ref.current,
         path: 'dataset.file',
         clearValue: pickerRef => {
@@ -25,14 +25,14 @@ export default function Profile({ name }) {
       });
     }
     // eslint-disable-next-line
-  }, [ref.current, fieldName]);
+    }, [ref.current, fieldName]);
 
   async function handleChange(e) {
     const data = new FormData();
 
-    data.append('avatar', e.target.files[0]);
+    data.append('banner', e.target.files[0]);
 
-    const response = await api.post('avatars', data);
+    const response = await api.post('banners', data);
 
     const { id, url } = response.data;
 
@@ -42,18 +42,16 @@ export default function Profile({ name }) {
 
   return (
     <Container>
-      <label htmlFor="avatar">
+      <label htmlFor="banner">
         <img
-          src={
-            preview || 'https://api.adorable.io/avatars/119/abott@adorable.png'
-          }
+          src={preview || 'https://rocketseat.com.br/static/og.png'}
           alt="Preview"
         />
 
         <input
           name={fieldName}
           type="file"
-          id="avatar"
+          id="banner"
           accept="image/*"
           data-file={file}
           onChange={handleChange}
@@ -64,6 +62,6 @@ export default function Profile({ name }) {
   );
 }
 
-Profile.propTypes = {
+BannerInput.propTypes = {
   name: PropTypes.string.isRequired
 };

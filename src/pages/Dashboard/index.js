@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
+
+import history from '~/services/history';
 import api from '~/services/api';
 
 import { Container, Meetups, Meetup } from './styles';
@@ -27,6 +29,13 @@ export default function Dashboard() {
     loadMeetups();
   }, []);
 
+  function handleMeetupSelection(id) {
+    history.push({
+      pathname: '/meetup_editor',
+      search: `?meetup=${id}`
+    });
+  }
+
   return (
     <Container>
       <div>
@@ -37,7 +46,10 @@ export default function Dashboard() {
       <Meetups>
         {meetups ? (
           meetups.map(meetup => (
-            <Meetup key={meetup.id}>
+            <Meetup
+              key={meetup.id}
+              onClick={() => handleMeetupSelection(meetup.id)}
+            >
               <strong>{meetup.name}</strong>
               <span>{meetup.date}</span>
             </Meetup>
