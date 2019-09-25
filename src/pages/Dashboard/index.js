@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -15,15 +16,19 @@ export default function Dashboard() {
     async function loadMeetups() {
       const response = await api.get('meetups');
 
-      const formatedMeetups = response.data.map(meetup => {
-        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        const zonedDate = utcToZonedTime(parseISO(meetup.date), timezone);
-        const date = format(zonedDate, 'MMMM d HH:mmaa');
+      try {
+        const formatedMeetups = response.data.map(meetup => {
+          const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          const zonedDate = utcToZonedTime(parseISO(meetup.date), timezone);
+          const date = format(zonedDate, 'MMMM d HH:mmaa');
 
-        return { ...meetup, date };
-      });
+          return { ...meetup, date };
+        });
 
-      setMeetups(formatedMeetups);
+        setMeetups(formatedMeetups);
+      } catch (err) {
+        toast.error(response.data.message);
+      }
     }
 
     loadMeetups();
@@ -32,7 +37,8 @@ export default function Dashboard() {
   function handleMeetupSelection(id) {
     history.push({
       pathname: '/meetup_editor',
-      search: `?meetup=${id}`
+      search: `?meetup=${id}`,
+      id
     });
   }
 
@@ -55,7 +61,7 @@ export default function Dashboard() {
             </Meetup>
           ))
         ) : (
-          <h1>No meetups</h1>
+          <h1>You do not have any meetups organized D:</h1>
         )}
       </Meetups>
     </Container>

@@ -9,10 +9,6 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    h1 {
-      color: #fff;
-    }
-
     a {
       border: 0;
       color: #fff;
@@ -27,6 +23,10 @@ export const Container = styled.div`
         opacity: 0.5;
       }
     }
+  }
+
+  h1 {
+    color: #fff;
   }
 `;
 
