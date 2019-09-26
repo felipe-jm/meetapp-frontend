@@ -1,7 +1,45 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import ReactLoading from 'react-loading';
+import { Form, Input } from '@rocketseat/unform';
 
-import MeetupForm from '~/components/MeetupForm';
+import DatePicker from '~/components/DatePicker';
+import BannerInput from '~/components/BannerInput';
+
+import { createMeetupRequest } from '~/store/modules/meetup/actions';
+
+import { Container } from './styles';
 
 export default function MeetupCreator() {
-  return <MeetupForm />;
+  const loading = useSelector(state => state.meetup.loading);
+  const dispatch = useDispatch();
+
+  function handleSubmit(data) {
+    dispatch(createMeetupRequest(data));
+  }
+
+  return (
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <BannerInput name="banner_id" />
+
+        <Input name="name" type="text" placeholder="Title" />
+        <Input
+          multiline
+          rows="5"
+          name="description"
+          placeholder="Description"
+        />
+        <DatePicker name="date" />
+        <Input name="location" type="location" placeholder="Location" />
+        <button type="submit">
+          {loading ? (
+            <ReactLoading type="spin" color="#fff" height="32px" width="32px" />
+          ) : (
+            'Create meetup'
+          )}
+        </button>
+      </Form>
+    </Container>
+  );
 }

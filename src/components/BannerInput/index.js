@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useField } from '@rocketseat/unform';
 
 import api from '~/services/api';
 
 import { Container } from './styles';
 
-export default function BannerInput({ name }) {
-  const ref = useRef(null);
-  const { fieldName, defaultValue, registerField } = useField(name);
+export default function BannerInput() {
+  const ref = useRef();
+  const { defaultValue, registerField } = useField('banner');
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
   const [preview, setPreview] = useState(defaultValue && defaultValue.url);
@@ -18,14 +17,11 @@ export default function BannerInput({ name }) {
       registerField({
         name: 'banner_id',
         ref: ref.current,
-        path: 'dataset.file',
-        clearValue: pickerRef => {
-          pickerRef.clear();
-        }
+        path: 'dataset.file'
       });
     }
     // eslint-disable-next-line
-    }, [ref.current, fieldName]);
+    }, [ref.current]);
 
   async function handleChange(e) {
     const data = new FormData();
@@ -49,7 +45,6 @@ export default function BannerInput({ name }) {
         />
 
         <input
-          name={fieldName}
           type="file"
           id="banner"
           accept="image/*"
@@ -61,7 +56,3 @@ export default function BannerInput({ name }) {
     </Container>
   );
 }
-
-BannerInput.propTypes = {
-  name: PropTypes.string.isRequired
-};

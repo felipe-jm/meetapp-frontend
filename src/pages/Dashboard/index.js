@@ -36,8 +36,7 @@ export default function Dashboard() {
 
   function handleMeetupSelection(id) {
     history.push({
-      pathname: '/meetup_editor',
-      search: `?meetup=${id}`,
+      pathname: '/meetup',
       id
     });
   }
@@ -54,9 +53,13 @@ export default function Dashboard() {
           meetups.map(meetup => (
             <Meetup
               key={meetup.id}
+              past={meetup.past}
               onClick={() => handleMeetupSelection(meetup.id)}
             >
-              <strong>{meetup.name}</strong>
+              <div>
+                <strong>{meetup.name}</strong>
+                {meetup.past && <p>Already happened</p>}
+              </div>
               <span>{meetup.date}</span>
             </Meetup>
           ))

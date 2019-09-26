@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  max-width: 600px;
+  max-width: 900px;
   margin: 50px auto;
 
   div {
@@ -45,9 +45,17 @@ export const Meetup = styled.li`
   align-items: center;
   justify-content: space-between;
 
-  strong {
-    color: #fff;
-    font-size: 16px;
+  div {
+    strong {
+      color: ${props => (props.past ? '#999' : '#fff')};
+      font-size: 18px;
+      margin-right: 12px;
+    }
+
+    p {
+      color: #d44059;
+      font-size: 16px;
+    }
   }
 
   span {
@@ -55,11 +63,18 @@ export const Meetup = styled.li`
     color: #999;
   }
 
-  cursor: pointer;
+  background: ${props =>
+    props.past ? 'rgba(0, 0, 0, 0.2)' : 'rgba(0, 0, 0, 0.5)'};
+  cursor: ${props => (props.past ? 'not-allowed' : 'pointer')};
   transition: 0.5s;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.7);
-    transform: scale(1.1);
+    background: ${props => (props.past ? 'rgba(0, 0, 0, 0.3)' : '')};
+    ${props =>
+      !props.past &&
+      css`
+        background: rgba(0, 0, 0, 0.7);
+        transform: scale(1.1);
+      `};
   }
 `;

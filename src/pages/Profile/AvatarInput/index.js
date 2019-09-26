@@ -7,7 +7,7 @@ import api from '~/services/api';
 import { Container } from './styles';
 
 export default function Profile({ name }) {
-  const ref = useRef(null);
+  const ref = useRef();
   const { fieldName, defaultValue, registerField } = useField(name);
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
@@ -18,10 +18,7 @@ export default function Profile({ name }) {
       registerField({
         name: 'avatar_id',
         ref: ref.current,
-        path: 'dataset.file',
-        clearValue: pickerRef => {
-          pickerRef.clear();
-        }
+        path: 'dataset.file'
       });
     }
     // eslint-disable-next-line

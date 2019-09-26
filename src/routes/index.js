@@ -6,8 +6,8 @@ import SignIn from '~/pages/SignIn';
 import SignUp from '~/pages/SignUp';
 import Dashboard from '~/pages/Dashboard';
 import Profile from '~/pages/Profile';
-import MeetupCreator from '~/pages/MeetupCreator';
 import Meetup from '~/pages/Meetup';
+import MeetupCreator from '~/pages/MeetupCreator';
 import MeetupEditor from '~/pages/MeetupEditor';
 import NotFound from '~/components/NotFound';
 

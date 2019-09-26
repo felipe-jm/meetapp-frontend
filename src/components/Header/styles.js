@@ -5,7 +5,7 @@ export const Container = styled.div`
   height: 100px;
   background: rgba(0, 0, 0, 0.6);
   align-self: center;
-  margin-bottom: 20px;
+  padding: 0 20px;
 `;
 
 export const Content = styled.div`
