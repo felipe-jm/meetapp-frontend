@@ -1,7 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { MdArrowBack } from 'react-icons/md';
 
+import history from '~/services/history';
 import { signOut } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/logo.svg';
@@ -16,6 +18,11 @@ export default function Header() {
     dispatch(signOut());
   }
 
+  const {
+    location: { pathname },
+    goBack
+  } = history;
+
   return (
     <Container>
       <Content>
@@ -23,6 +30,12 @@ export default function Header() {
           <Link to="/dashboard">
             <img src={logo} alt="Meetapp" />
           </Link>
+          {pathname !== '/dashboard' && (
+            <button type="button" onClick={goBack}>
+              <MdArrowBack size={36} />
+              Voltar
+            </button>
+          )}
         </nav>
 
         <aside>

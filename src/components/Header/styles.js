@@ -16,6 +16,34 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: 0;
+    font-weight: bold;
+    font-size: 24px;
+
+    margin-left: 28px;
+    color: #eee;
+
+    svg {
+      margin-right: 4px;
+      transition: transform 180ms ease-in-out;
+    }
+    &:hover svg {
+      transform: translateX(-2px);
+    }
+  }
 `;
 
 export const Profile = styled.div`
