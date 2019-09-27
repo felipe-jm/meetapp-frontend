@@ -54,7 +54,9 @@ export default function Dashboard() {
             <Meetup
               key={meetup.id}
               past={meetup.past}
-              onClick={() => handleMeetupSelection(meetup.id)}
+              onClick={
+                meetup.past ? null : () => handleMeetupSelection(meetup.id)
+              }
             >
               <div>
                 <strong>{meetup.name}</strong>

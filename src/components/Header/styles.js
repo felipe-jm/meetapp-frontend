@@ -31,7 +31,7 @@ export const Content = styled.div`
     background: transparent;
     border: 0;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 18px;
 
     margin-left: 28px;
     color: #eee;

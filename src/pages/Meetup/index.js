@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import ReactLoading from 'react-loading';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
@@ -6,9 +8,14 @@ import { utcToZonedTime } from 'date-fns-tz';
 
 import api from '~/services/api';
 
-import { Container, MeetupTitle, MeetupInfo } from './styles';
+import { cancelMeetupRequest } from '~/store/modules/meetup/actions';
+
+import { Container, MeetupTitle, MeetupInfo, Image } from './styles';
 
 export default function Meetup({ location }) {
+  const loading = useSelector(state => state.meetup.loading);
+  const dispatch = useDispatch();
+
   const meetup_id = location.id;
   const [meetup, setMeetup] = useState({});
 
@@ -27,6 +34,10 @@ export default function Meetup({ location }) {
     loadMeetup();
   }, [meetup_id]);
 
+  function handleCancelMeetup(id) {
+    dispatch(cancelMeetupRequest(id));
+  }
+
   return (
     <Container>
       <MeetupTitle>
@@ -40,18 +51,29 @@ export default function Meetup({ location }) {
           >
             Editar
           </Link>
-          <Link to="/dashboard">Cancelar</Link>
+          <button type="button" onClick={() => handleCancelMeetup(meetup_id)}>
+            {loading ? (
+              <ReactLoading
+                type="spin"
+                color="#fff"
+                height="18px"
+                width="18px"
+              />
+            ) : (
+              'Cancel meetup'
+            )}
+          </button>
         </div>
       </MeetupTitle>
 
-      <img
+      <Image
         src={
           meetup.banner
             ? meetup.banner.url
             : 'https://rocketseat.com.br/static/og.png'
         }
-        alt="Meetup"
       />
+
       <MeetupInfo>
         <p>{meetup.description}</p>
         <div>

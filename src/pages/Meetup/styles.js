@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  max-width: 800px;
-  margin: 20px auto;
+  max-width: 1100px;
+  margin: 40px auto;
+`;
 
-  img {
-    width: 100%;
-    margin-top: 52px;
-  }
+export const Image = styled.div`
+  width: 100%;
+  height: 300px;
+  margin: 30px 0;
+  background-image: url(${props => props.src});
+  background-repeat: none;
+  background-position: center;
+  background-size: cover;
 `;
 
 export const MeetupTitle = styled.div`
@@ -36,7 +41,8 @@ export const MeetupTitle = styled.div`
       }
     }
 
-    a {
+    a,
+    button {
       border: 0;
       color: #fff;
       font-weight: bold;

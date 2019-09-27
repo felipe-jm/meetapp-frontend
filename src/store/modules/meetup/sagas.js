@@ -8,7 +8,9 @@ import {
   createMeetupSuccess,
   createMeetupFailure,
   updateMeetupSuccess,
-  updateMeetupFailure
+  updateMeetupFailure,
+  cancelMeetupSuccess,
+  cancelMeetupFailure
 } from './actions';
 
 export function* createMeetup({ payload }) {
@@ -37,14 +39,33 @@ export function* updateMeetup({ payload }) {
 
     toast.success('Meetup updated successfully!');
     yield put(updateMeetupSuccess());
-    history.push('/');
+    history.push({
+      pathname: '/meetup',
+      id: meetup_id
+    });
   } catch (err) {
     toast.error('Something went wrong. Try again.');
     yield put(updateMeetupFailure());
   }
 }
 
+export function* cancelMeetup({ payload }) {
+  try {
+    const { id } = payload;
+
+    yield call(api.delete, `meetups/${id}`);
+
+    toast.success('Meetup cancelled successfully!');
+    yield put(cancelMeetupSuccess());
+    history.push('/');
+  } catch (err) {
+    toast.error('Something went wrong.');
+    yield put(cancelMeetupFailure());
+  }
+}
+
 export default all([
   takeLatest('@meetup/CREATE_MEETUP_REQUEST', createMeetup),
-  takeLatest('@meetup/UPDATE_MEETUP_REQUEST', updateMeetup)
+  takeLatest('@meetup/UPDATE_MEETUP_REQUEST', updateMeetup),
+  takeLatest('@meetup/CANCEL_MEETUP_REQUEST', cancelMeetup)
 ]);
