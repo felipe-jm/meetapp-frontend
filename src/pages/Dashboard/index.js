@@ -37,7 +37,7 @@ export default function Dashboard() {
   function handleMeetupSelection(id) {
     history.push({
       pathname: '/meetup',
-      id
+      search: `?id=${id}`
     });
   }
 

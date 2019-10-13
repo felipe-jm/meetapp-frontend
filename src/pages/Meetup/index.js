@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { format, parseISO } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
+import queryString from 'query-string';
 
 import api from '~/services/api';
 
@@ -16,7 +17,9 @@ export default function Meetup({ location }) {
   const loading = useSelector(state => state.meetup.loading);
   const dispatch = useDispatch();
 
-  const meetup_id = location.id;
+  const values = queryString.parse(location.search);
+  const meetup_id = values.id;
+
   const [meetup, setMeetup] = useState({});
 
   useEffect(() => {

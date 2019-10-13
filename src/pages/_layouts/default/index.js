@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 
 import Header from '~/components/Header';
 
@@ -10,7 +9,7 @@ export default function DefaultLayout({ children }) {
   return (
     <Wrapper>
       <Header />
-      <PerfectScrollbar>{children}</PerfectScrollbar>
+      {children}
     </Wrapper>
   );
 }
