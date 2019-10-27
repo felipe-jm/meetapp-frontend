@@ -26,6 +26,9 @@ export const MeetupTitle = styled.div`
   }
 
   div {
+    display: flex;
+    align-items: center;
+
     a:first-child {
       border: 0;
       color: #fff;
@@ -35,6 +38,9 @@ export const MeetupTitle = styled.div`
       padding: 12px 10px;
       margin-left: 10px;
       transition: opacity 0.5s;
+
+      display: flex;
+      align-items: center;
 
       &:hover {
         opacity: 0.5;
@@ -54,6 +60,14 @@ export const MeetupTitle = styled.div`
 
       &:hover {
         opacity: 0.5;
+      }
+
+      display: flex;
+      align-items: center;
+
+      svg {
+        font-size: 20px;
+        margin-right: 5px;
       }
     }
   }

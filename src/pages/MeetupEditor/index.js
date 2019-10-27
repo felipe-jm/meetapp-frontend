@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { parseISO } from 'date-fns';
 import ReactLoading from 'react-loading';
+import { toast } from 'react-toastify';
 import { Form, Input } from '@rocketseat/unform';
 import DatePicker from '~/components/DatePicker';
 import BannerInput from '~/components/BannerInput';
 
-import { updateMeetupRequest } from '~/store/modules/meetup/actions';
-
 import { Container } from './styles';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 export default function MeetupEditor({ location }) {
-  const dispatch = useDispatch();
-  const updateLoading = useSelector(state => state.meetup.loading);
+  const [updateLoading, setUpdateLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const meetup_id = location.id;
@@ -35,15 +33,25 @@ export default function MeetupEditor({ location }) {
     loadMeetup();
   }, [meetup_id]);
 
-  function handleSubmit(data) {
-    const fullData = { ...data, meetup_id };
-    dispatch(updateMeetupRequest(fullData));
+  async function handleSubmit(data) {
+    try {
+      setUpdateLoading(true);
+      const fullData = { ...data, meetup_id };
+      await api.put(`meetups/${meetup_id}`, fullData);
+      toast.success('Meetup updated successfully!');
+      setUpdateLoading(false);
+      history.push('/dashboard');
+    } catch (error) {
+      setUpdateLoading(false);
+      const message = error.response.data.error;
+      toast.error(message);
+    }
   }
 
   return (
     <Container>
       {loading ? (
-        <ReactLoading type="spin" color="#fff" height="128px" width="12px" />
+        <ReactLoading type="spin" color="#fff" height="64px" width="64px" />
       ) : (
         <Form initialData={meetup} onSubmit={handleSubmit}>
           <BannerInput name="banner_id" />

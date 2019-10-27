@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import ReactLoading from 'react-loading';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { MdModeEdit, MdDeleteForever } from 'react-icons/md';
 import { format, parseISO } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 import queryString from 'query-string';
 
 import api from '~/services/api';
-
-import { cancelMeetupRequest } from '~/store/modules/meetup/actions';
+import history from '~/services/history';
 
 import { Container, MeetupTitle, MeetupInfo, Image } from './styles';
 
 export default function Meetup({ location }) {
-  const loading = useSelector(state => state.meetup.loading);
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const values = queryString.parse(location.search);
   const meetup_id = values.id;
@@ -37,8 +36,18 @@ export default function Meetup({ location }) {
     loadMeetup();
   }, [meetup_id]);
 
-  function handleCancelMeetup(id) {
-    dispatch(cancelMeetupRequest(id));
+  async function handleCancelMeetup(id) {
+    try {
+      setLoading(true);
+      await api.delete(`meetups/${id}`);
+      toast.success('Meetup cancelado!');
+      setLoading(false);
+      history.push('/dashboard');
+    } catch (error) {
+      setLoading(false);
+      const message = error.response.data.error;
+      toast.error(message);
+    }
   }
 
   return (
@@ -52,9 +61,11 @@ export default function Meetup({ location }) {
               id: meetup.id
             }}
           >
+            <MdModeEdit />
             Editar
           </Link>
           <button type="button" onClick={() => handleCancelMeetup(meetup_id)}>
+            <MdDeleteForever />
             {loading ? (
               <ReactLoading
                 type="spin"

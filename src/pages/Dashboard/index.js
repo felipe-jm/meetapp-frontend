@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { MdAddCircleOutline } from 'react-icons/md';
 import { format, parseISO } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
 
@@ -45,7 +46,10 @@ export default function Dashboard() {
     <Container>
       <div>
         <h1>My meetups</h1>
-        <Link to="/meetup_creator">New meetup</Link>
+        <Link to="/meetup_creator">
+          <MdAddCircleOutline />
+          New meetup
+        </Link>
       </div>
 
       <Meetups>

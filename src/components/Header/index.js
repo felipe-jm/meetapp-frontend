@@ -6,6 +6,8 @@ import { MdArrowBack } from 'react-icons/md';
 import history from '~/services/history';
 import { signOut } from '~/store/modules/auth/actions';
 
+import Notifications from '~/components/Notifications';
+
 import logo from '~/assets/logo.svg';
 
 import { Container, Content, Profile } from './styles';
@@ -39,6 +41,8 @@ export default function Header() {
         </nav>
 
         <aside>
+          <Notifications />
+
           <Profile>
             <div>
               <strong>{profile.name}</strong>

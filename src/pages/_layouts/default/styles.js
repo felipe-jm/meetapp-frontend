@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 export const Wrapper = styled.div`
   min-height: 100%;
@@ -50,4 +51,8 @@ export const Wrapper = styled.div`
       }
     }
   }
+`;
+
+export const Scroll = styled(PerfectScrollbar)`
+  max-height: 100%;
 `;

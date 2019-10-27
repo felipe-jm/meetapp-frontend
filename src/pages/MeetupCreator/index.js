@@ -1,21 +1,30 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import ReactLoading from 'react-loading';
+import { toast } from 'react-toastify';
 import { Form, Input } from '@rocketseat/unform';
 
 import DatePicker from '~/components/DatePicker';
 import BannerInput from '~/components/BannerInput';
 
-import { createMeetupRequest } from '~/store/modules/meetup/actions';
-
 import { Container } from './styles';
+import api from '~/services/api';
+import history from '~/services/history';
 
 export default function MeetupCreator() {
-  const loading = useSelector(state => state.meetup.loading);
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
-  function handleSubmit(data) {
-    dispatch(createMeetupRequest(data));
+  async function handleSubmit(data) {
+    try {
+      setLoading(true);
+      await api.post('meetups', data);
+      toast.success('Meetup created successfully!');
+      setLoading(false);
+      history.push('/dashboard');
+    } catch (error) {
+      setLoading(false);
+      const message = error.response.data.error;
+      toast.error(message);
+    }
   }
 
   return (

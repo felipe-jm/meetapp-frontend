@@ -17,10 +17,24 @@ export const Content = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  aside {
+    display: flex;
+    align-items: center;
+  }
+
   nav {
     display: flex;
     align-items: center;
-    justify-content: center;
+
+    img {
+      margin-right: 20px;
+      padding-right: 20px;
+      border-right: 1px solid #eee;
+    }
+    a {
+      font-weight: bold;
+      color: #d44059;
+    }
   }
 
   button {
@@ -41,7 +55,7 @@ export const Content = styled.div`
       transition: transform 180ms ease-in-out;
     }
     &:hover svg {
-      transform: translateX(-2px);
+      transform: scale(1.1);
     }
   }
 `;
@@ -51,6 +65,9 @@ export const Profile = styled.div`
   align-items: center;
   justify-content: center;
   text-align: right;
+  padding-left: 15px;
+
+  border-left: 1px solid #999;
 
   div {
     display: flex;

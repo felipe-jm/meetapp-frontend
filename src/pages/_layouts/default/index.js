@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import Header from '~/components/Header';
 
-import { Wrapper } from './styles';
+import { Wrapper, Scroll } from './styles';
 
 export default function DefaultLayout({ children }) {
   return (
     <Wrapper>
       <Header />
-      {children}
+      <Scroll>{children}</Scroll>
     </Wrapper>
   );
 }
